@@ -3,8 +3,10 @@ import shutil
 import random
 
 # Paths
-original_dataset_dir = r'/mnt/c/Users/sonal/OneDrive/Desktop/ComputerVsionProject/Brain-Tumor-Detection/archive (1)/brain_tumor_dataset'
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+original_dataset_dir = os.path.join(base_dir, 'archive (1)', 'brain_tumor_dataset')
 
+output_base_dir = os.path.dirname(os.path.abspath(__file__))
 output_dirs = ['train', 'val', 'test']
 categories = ['yes', 'no']
 
@@ -18,7 +20,7 @@ split_ratios = {
 # Create output directories if they don't exist
 for split in output_dirs:
     for category in categories:
-        os.makedirs(os.path.join(split, category), exist_ok=True)
+        os.makedirs(os.path.join(output_base_dir, split, category), exist_ok=True)
 
 # Loop over categories and split files
 for category in categories:
@@ -50,7 +52,7 @@ for category in categories:
     def copy_files(file_list, split_name):
         for file in file_list:
             src = os.path.join(category_path, file)
-            dst = os.path.join(split_name, category, file)
+            dst = os.path.join(output_base_dir, split_name, category, file)
             shutil.copy2(src, dst)
     
     # Copy to respective folders
