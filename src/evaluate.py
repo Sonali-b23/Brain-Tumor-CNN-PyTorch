@@ -32,4 +32,4 @@ def evaluate(model, dataloader, criterion, device):
     print("Confusion Matrix:")
     print(confusion_matrix(all_labels, all_preds))
 
-    return epoch_loss, epoch_acc.item()
+    return epoch_loss, epoch_acc.item(), all_labels, all_preds

@@ -23,7 +23,7 @@ def main():
 
     for epoch in range(NUM_EPOCHS):
         train_loss, train_acc = train_one_epoch(model, dataloaders['train'], criterion, optimizer, DEVICE)
-        val_loss, val_acc = evaluate(model, dataloaders['val'], criterion, DEVICE)
+        val_loss, val_acc, _, _ = evaluate(model, dataloaders['val'], criterion, DEVICE)
 
         print(f"Epoch {epoch+1}/{NUM_EPOCHS}")
         print(f"Train Loss: {train_loss:.4f} | Train Acc: {train_acc:.4f}")
@@ -33,6 +33,15 @@ def main():
             best_acc = val_acc
             torch.save(model.state_dict(), 'outputs/checkpoints/best_model.pth')
             print("Saved Best Model")
+
+    print("\n--- Final Evaluation on Test Set ---")
+    model.load_state_dict(torch.load('outputs/checkpoints/best_model.pth'))
+    test_loss, test_acc, all_labels, all_preds = evaluate(model, dataloaders['test'], criterion, DEVICE)
+    print(f"Test Loss: {test_loss:.4f} | Test Acc: {test_acc:.4f}")
+    
+    from src.utils import plot_confusion_matrix
+    plot_confusion_matrix(all_labels, all_preds, class_names, save_path='outputs/test_confusion_matrix.png')
+    print("Test confusion matrix saved to 'outputs/test_confusion_matrix.png'")
 
 if __name__ == '__main__':
     main()
