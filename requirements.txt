@@ -1,6 +1,8 @@
-torch
-torchvision
-numpy
-matplotlib
-scikit-learn
-opencv-python
+torch==2.14.0
+torchvision==0.29.0
+numpy==2.4.4
+matplotlib==3.10.9
+scikit-learn==1.8.0
+seaborn==0.13.2
+opencv-python==4.13.0.92
+pillow==12.2.0
