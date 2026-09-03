@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+
+# Trained model checkpoints and generated confusion-matrix/metrics
+# artifacts are reproducible outputs of `python run.py`, not source --
+# not committed so the repo doesn't silently ship a stale checkpoint
+# that no longer matches the code that produced it.
+outputs/
+
+# Raw Kaggle download and the derived train/val/test split are both
+# regenerable (data/split_dataset.py rebuilds data/ from archive (1)/,
+# and archive (1)/ is the original Kaggle download) and together are
+# tens of MB of binary image data that doesn't belong in git history.
+# See README.md for where to download the source dataset from.
+archive (1)/
+data/train/
+data/val/
+data/test/
